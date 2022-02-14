@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 import os
-import django_heroku
+# import django_heroku
 from pathlib import Path
 
 
@@ -35,7 +35,7 @@ if DEBUG:
 else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["https://manoj-cv.herokuapp.com/", "localhost", "127.0.0.1"]
 
 
 # Application definition
@@ -135,4 +135,4 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
