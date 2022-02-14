@@ -25,4 +25,5 @@ from resume import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('CV.urls')),
+    path('projects/', include('Projects.urls')),
 ] + static(settings.STATIC_URL, document_root=os.path.join(settings.BASE_DIR, 'static'))
