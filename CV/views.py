@@ -11,7 +11,7 @@ from resume.settings import BASE_DIR
 class DisplayCV(View):
 
     def get(self, request):
-        return FileResponse(open(os.path.join(BASE_DIR, 'static', 'CV', 'Resume_ManojKumar.pdf'), 'rb'), content_type='application/pdf')
+        return FileResponse(open(os.path.join(BASE_DIR, 'staticfiles', 'Resume_ManojKumar.pdf'), 'rb'), content_type='application/pdf')
 
 
 class MyProfile(View):
