@@ -4,6 +4,10 @@ from django.shortcuts import render
 
 # Create your views here.
 
+class TocView(View):
+
+    def get(self, request):
+        return render(request, 'PythonNotes/toc.html')
 
 class BaseDoc(View):
     
@@ -19,7 +23,7 @@ class ImpTopicsView(View):
 
 
 
-class SequenceTypesView(View):
+class DataTypesView(View):
 
     def get(self, request):
-        return render(request, 'PythonNotes/SequenceTypes.html')
+        return render(request, 'PythonNotes/DataTypes.html')

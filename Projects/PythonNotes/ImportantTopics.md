@@ -1,3 +1,13 @@
+- [Object References](#object-references)
+    - [Q. **How objects are passed to functions?**](#q-how-objects-are-passed-to-functions)
+    - [Q. **Is Python call by value (or) call by reference?**](#q-is-python-call-by-value-or-call-by-reference)
+  - [Copy Mechanism in python](#copy-mechanism-in-python)
+    - [Q. **What is the difference between shallow copy vs deep copy?**](#q-what-is-the-difference-between-shallow-copy-vs-deep-copy)
+    - [1. Object Reference](#1-object-reference)
+    - [2. copy/shallocopy](#2-copyshallocopy)
+    - [3. deepcopy](#3-deepcopy)
+
+
 ## Mutable Objects vs Immutable Objects
 Everything in python is an object. All the objects can be either mutable or immutable.
 -> Python handles mutable and immutable objects differently.
@@ -40,7 +50,7 @@ Python doesn't have variables as such but instead has object references.
 
 
 
-### Q. How objects are passed to functions?
+### Q. **How objects are passed to functions?**
 
 If the arguments created while function declaration are mutable then calling the function acts like call-by-reference.
 
@@ -56,7 +66,7 @@ If the arguments created while function declaration are immutable then calling t
 
 <br/>
 
-### Q. Is Python call by value (or) call by reference:
+### Q. **Is Python call by value (or) call by reference?**
 
 A. Python uses a mechanism which is known as *call-by-object* sometimes also called *call by object reference* or *call by sharing*
 
@@ -109,7 +119,7 @@ One Exception here is, If we assign brand new list to tempObject and modify temp
 >>> 
 ```
 
-### Q. What is the difference between shallow copy vs deep copy?
+### Q. **What is the difference between shallow copy vs deep copy?**
 
 > copy or shallocopy will copy the objects of the reference object not the objects bound to the object
 

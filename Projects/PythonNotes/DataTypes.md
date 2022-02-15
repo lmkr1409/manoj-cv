@@ -1,4 +1,6 @@
 
+# Sequence Types
+
 A sequence data type is the data type that supports the membership operator *in*, the size function *len()*, slices *[]* and iterable.
 
 Python provides 5 built-n sequence types
@@ -8,7 +10,7 @@ Python provides 5 built-n sequence types
 * list
 * tuple
 
-# Common across all sequence types
+## sequence types - common topics
 
 ## Slicing
 Examples are using list, but applicable for all sequence types
@@ -227,3 +229,144 @@ In namedtuple we can use **_asdict()** private method for string formatting.
 'Airbus A320'
 >>> 
 ```
+
+
+# Set Types
+* A set type is a collection of data items/types that supports membership operator(in), the size function len() and is iterable.
+* Supports for bitwise operators
+* Python support two built-in set types
+    1. set - Mutable set type
+    2. frozenset - immutable set type
+
+Note: 
+> only hashable objects can be added to a set.
+
+* Hashable objects are objects which have a \_\_hash\_\_() function whose return values is always same throughout the objects lifecycle <br/> and which can be compared for equality using the \_\_eq()\_\_ special method.
+
+> special methods in python are methods whose name begins and ends with 2 underscores <br/>
+> Ex: \_\_init()\_\_, \_\_len()\_\_, \_\_eq()\_\_, \_\_hash()\_\_,etc
+
+> All built-in immutable data types such as float, int, frozenset, str, tuple are hashable and can be added to sets.
+
+> The built-in mutable data types such as dict, list and set are not hashable since their hash value changes depends on the items they contain.
+
+
+# set
+
+* A set is an **unordered collection** of zero or more object references that refer to hashable objects.
+  
+-> Mutable<br/>
+-> since sets are unordered they have no notion of index position and so cannot be sliced or strided.
+
+```python
+>>> s = set()
+>>> s
+set()
+>>> s.add(1)
+>>> s.add(2)
+>>> s
+{1, 2}
+>>> s1 = set(s) # Shallow copy of set s
+>>> s1
+{1, 2}
+>>> s2 = set([1,2,3, 2, 1]) # set from list
+>>> s2
+{1, 2, 3}
+>>> 
+```
+
+Note:
+> Empty set should be created with set() method as {} is used for dict creation
+
+> set always contains unique item
+
+-> ```set('apple')```, ```set('aple')```, ```set(['e', 'p', 'a', 'l'])``` all same<br/>
+-> To access elements either loop through set or convert the set to list by using ```list(set) ```
+
+## Set Operations
+
+| operation | operator | example |
+| -- | -- | -- |
+| union | \| | ```set("pecan") \| set("pie") => {'p','e','c','n','i'}``` |
+| intersection | & | ```set("pecan") & set("pie") => {'p','e'}``` |
+| difference | - | ```set("pecan") - set("pie") => {'c','a','n'}``` |
+| symmetric difference | ^ | ```set("pecan") ^ set("pie") => {'c','n','i'}``` |
+|
+
+## set comprehension 
+A set comprehension is an expression and a loop with an optional conditon enclosed in braces.
+```python
+>>> {expression for item in iterable}
+>>> {expression for item in iterable if condition}
+>>>
+```
+An Example
+```python
+>>> all_html_files = {x for x in file_names if x.lower().endswith('.html')}
+>>> 
+```
+
+## set methods
+
+let <br/>
+-> s - set <br/>
+-> t - another set <br/>
+-> x - variable
+| method | description |
+| -- | -- |
+| s.add(x) | Add item x to set s if item x is not already present in set s |
+| s.clear() | Removes all the items | 
+| s.copy() | Returns a shallow copy | 
+| s.pop() | Removes and returns random item from set, raises **KeyError** if set is empty |
+| s.discard(x) | removes x |
+| s.remove(x) | Removes x or raises **KeyError** |
+| s.difference(t) <br/> s-t | Returns new set with s-t |
+| s.difference_update(t) <br/> s-=t | Removes every item from s which is in t |
+| s.intersection(t) <br/> s&t | Returns a new set which has items in both s and t |
+| s.intersection_update(t) <br/> s&=t | updates s with s&t |
+| s.isdisjoint(t) | Returns True if s and t are disjoints | 
+| s.issubset(t) <br/> s<=t | Returns True if s is subset of t |
+| s.issuperset(t) <br/> s>t | Returns True if s is superset of t|
+| s.symmetric_difference(t) <br/> s^t| Returns new set with s^t |
+| s.symmetric_difference_update(t) <br/> s^=t | Updates s with s^t |
+| s.union(t) <br/> s\|t | Returns new set with union of s and t |
+| s.update(t) <br/> s=\|t | Update as union |
+|
+
+
+# frozenset
+
+-> A frozenset is immutable<br/>
+-> can only be created with ```frozenset()```
+```python
+>>> frozenset()
+frozenset()
+>>> fs = frozenset([1,2,3])
+>>> fs
+frozenset({1, 2, 3})
+>>> fs2 = frozenset(fs) # shallo copy
+>>> 
+```
+> since frozenset s are immutable they support only those methods and operations that produce a result without affecting the frozenset
+
+> If a binary operator is used with a set and frozenset then the result will be <br/>
+> ```f&s => returns frozenset <br/>``` <br/>
+> ```s&f => returns set``` <br/>
+> ```== or != => returns True/False```
+
+## frozenset methods
+let <br/>
+-> s - frozenset <br/>
+-> t - another frozenset <br/>
+-> x - variable
+| method | description |
+| -- | -- |
+| s.copy() | Returns a shallow copy | 
+| s.difference(t) <br/> s-t | Returns new set with s-t |
+| s.intersection(t) <br/> s&t | Returns a new set which has items in both s and t |
+| s.isdisjoint(t) | Returns True if s and t are disjoints | 
+| s.issubset(t) <br/> s<=t | Returns True if s is subset of t |
+| s.issuperset(t) <br/> s>t | Returns True if s is superset of t|
+| s.symmetric_difference(t) <br/> s^t| Returns new set with s^t |
+| s.union(t) <br/> s\|t | Returns new set with union of s and t |
+|
