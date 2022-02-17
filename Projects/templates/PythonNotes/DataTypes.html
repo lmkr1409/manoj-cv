@@ -35,7 +35,68 @@
         
     </head>
     <body class="vscode-body vscode-light">
-        <h1 id="sequence-types">Sequence Types</h1>
+        <ul>
+<li><a href="#sequence-types">Sequence Types</a>
+<ul>
+<li><a href="#sequence-types---common-topics">sequence types - common topics</a></li>
+<li><a href="#slicing">Slicing</a>
+<ul>
+<li><a href="#syntax">Syntax</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#lists---mutable">Lists - Mutable</a>
+<ul>
+<li><a href="#unpacking-and-starred-unpacking-of-a-list">Unpacking and starred unpacking of a list:</a></li>
+<li><a href="#methods-on-lists">Methods on lists:</a></li>
+<li><a href="#list-comprehension">List Comprehension</a></li>
+</ul>
+</li>
+<li><a href="#tuples---immutable">Tuples - Immutable</a>
+<ul>
+<li><a href="#methods-on-tuples">Methods on tuples</a></li>
+</ul>
+</li>
+<li><a href="#named-tuples">Named Tuples</a>
+<ul>
+<li><a href="#string-formatting-for-namedtuple">String formatting for namedtuple</a></li>
+</ul>
+</li>
+<li><a href="#set-types">Set Types</a></li>
+<li><a href="#set">set</a>
+<ul>
+<li><a href="#set-operations">Set Operations</a></li>
+<li><a href="#set-comprehension">set comprehension</a></li>
+<li><a href="#set-methods">set methods</a></li>
+</ul>
+</li>
+<li><a href="#frozenset">frozenset</a>
+<ul>
+<li><a href="#frozenset-methods">frozenset methods</a></li>
+</ul>
+</li>
+<li><a href="#mapping-types">Mapping Types</a></li>
+<li><a href="#dictionaries">Dictionaries</a>
+<ul>
+<li><a href="#dict-declaration">dict declaration</a></li>
+<li><a href="#dict-methods">dict methods</a>
+<ul>
+<li><a href="#q-what-is-the-difference-between-view-and-iterable">Q. <strong>What is the difference between view and iterable</strong>?</a></li>
+<li><a href="#useful-code">Useful code</a></li>
+</ul>
+</li>
+<li><a href="#dict-comprehensions">dict comprehensions:</a></li>
+</ul>
+</li>
+<li><a href="#default-dictionaries">Default Dictionaries</a>
+<ul>
+<li><a href="#factory-function">Factory Function</a></li>
+</ul>
+</li>
+<li><a href="#ordered-dictionaries">Ordered Dictionaries</a></li>
+</ul>
+<h1 id="sequence-types">Sequence Types</h1>
 <p>A sequence data type is the data type that supports the membership operator <em>in</em>, the size function <em>len()</em>, slices <em>[]</em> and iterable.</p>
 <p>Python provides 5 built-n sequence types</p>
 <ul>
@@ -577,6 +638,240 @@ frozenset({<span class="hljs-number">1</span>, <span class="hljs-number">2</span
 </tr>
 </tbody>
 </table>
+<br/>
+<br/>
+<h1 id="mapping-types">Mapping Types</h1>
+<ul>
+<li>A mapping type is one that supports the membership operator(in) and the size function len() and is iterable.</li>
+</ul>
+<p>-&gt; Only hashable objects may be used as dictionary key. So immutable objects like float, frozenset, int, str and tuple can be used dictionary keys but mutable objects like dict, list, set cannot. <br/>
+-&gt; Dictionaries are mutable objects <br/>
+-&gt; Dictionaries can be compared using <br/></p>
+<ul>
+<li>== and != with comparisons being applied item by item (and recursively for nested items), <br/></li>
+<li>comparison using &lt;, &lt;=, &gt;=, &gt; are not supported</li>
+</ul>
+<p>-&gt; few types</p>
+<ul>
+<li>dictionary (default)</li>
+<li>collections.defaultdict</li>
+<li>collections.ordereddict</li>
+</ul>
+<h1 id="dictionaries">Dictionaries</h1>
+<p>A dict is an unordered collection of zero or more key-value pairs whose keys are object references the refer to the hashable objects and whose values are object references to objects of any type.<br/>
+-&gt; Dictionaries are mutable<br/>
+-&gt; Since unordered, no notion of index position and cannot be sliced or strided.<br/>
+-&gt; <code>d = dict()</code><br/>             (or)      <br/>      <code>d={}</code> ---&gt; creates an empty dictionary<br/>
+-&gt;dict(another_dict) -&gt; creates a shallow copy</p>
+<h3 id="dict-declaration">dict declaration</h3>
+<pre><code class="language-python"><div><span class="hljs-meta">&gt;&gt;&gt; </span>d1 = dict({<span class="hljs-string">&quot;id&quot;</span>:<span class="hljs-number">1948</span>, <span class="hljs-string">&quot;name&quot;</span>:<span class="hljs-string">&quot;washer&quot;</span>, <span class="hljs-string">&quot;size&quot;</span>:<span class="hljs-number">3</span>})
+<span class="hljs-meta">&gt;&gt;&gt; </span>d2 = dict(id=<span class="hljs-number">1948</span>, name=<span class="hljs-string">&quot;washer&quot;</span>, size = <span class="hljs-number">3</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>d3 = dict([(<span class="hljs-string">&quot;id&quot;</span>, <span class="hljs-number">1948</span>), (<span class="hljs-string">&quot;name&quot;</span>,<span class="hljs-string">&quot;washer&quot;</span>), (<span class="hljs-string">&quot;size&quot;</span>, <span class="hljs-number">3</span>)])
+<span class="hljs-meta">&gt;&gt;&gt; </span>d4 = dict(zip((<span class="hljs-string">&quot;id&quot;</span>,<span class="hljs-string">&quot;name&quot;</span>,<span class="hljs-string">&quot;size&quot;</span>),(<span class="hljs-number">1948</span>, <span class="hljs-string">&quot;washer&quot;</span>, <span class="hljs-number">3</span>)))
+<span class="hljs-meta">&gt;&gt;&gt; </span>d5 = {<span class="hljs-string">&quot;id&quot;</span>:<span class="hljs-number">1948</span>, <span class="hljs-string">&quot;name&quot;</span>:<span class="hljs-string">&quot;washer&quot;</span>, <span class="hljs-string">&quot;size&quot;</span>:<span class="hljs-number">3</span>}
+&gt;&gt;&gt;
+</div></code></pre>
+<p>All above 5 dictionaries will be same
+<br/>
+-&gt; Dictionaries support the build in len() function<br/>
+-&gt; Accessing dictionaries items can be</p>
+<pre><code class="language-python"><div><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">for</span> key, value <span class="hljs-keyword">in</span> d1.items():
+<span class="hljs-meta">... </span>    print(key, value)
+<span class="hljs-meta">... </span>
+id <span class="hljs-number">1948</span>
+name washer
+size <span class="hljs-number">3</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>
+</div></code></pre>
+<h2 id="dict-methods">dict methods</h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>clear()</td>
+<td>Removes all items</td>
+</tr>
+<tr>
+<td>copy()</td>
+<td>Returns shallow copy</td>
+</tr>
+<tr>
+<td>fromkeys(S, V)</td>
+<td>Returns a dict whose keys are the items in the sequence S and whose values are None or V if V is given</td>
+</tr>
+<tr>
+<td>get(K)</td>
+<td>Returns K's values, None if K isn't in the dict.<br/>           <strong>Note</strong>: d[K] will raise <strong>KeyError</strong> if K is not in the dict</td>
+</tr>
+<tr>
+<td>get(K, V)</td>
+<td>Returns K's value if K is in dict. If K not in dict then V</td>
+</tr>
+<tr>
+<td>items()</td>
+<td>Returns a <strong>view</strong> of all (Key, Values) pairs</td>
+</tr>
+<tr>
+<td>keys()</td>
+<td>Returns a view of all Keys</td>
+</tr>
+<tr>
+<td>values()</td>
+<td>Returns a view of all the values from d</td>
+</tr>
+<tr>
+<td>pop(k)</td>
+<td>Returns K's associated value and removes K from dict, raises <strong>KeyError</strong> if K not in dict</td>
+</tr>
+<tr>
+<td>pop(K, V)</td>
+<td>Returns K's associated value and removes K from dict, If K is not in dict then V is returned</td>
+</tr>
+<tr>
+<td>popitem()</td>
+<td>Returns and removes arbitary (Key, Value) pair from d, raise <strong>KeyError</strong> if d is empty</td>
+</tr>
+<tr>
+<td>setdefault(K, V)</td>
+<td>Returns K's Value. If K is not in d then a new K is created with None/V provided V</td>
+</tr>
+<tr>
+<td>update(a)</td>
+<td>updates d with all Key, value from a. Overrides of same with with value from a</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="q-what-is-the-difference-between-view-and-iterable">Q. <strong>What is the difference between view and iterable</strong>?</h3>
+<p>A view helps to get a new view of array with the same data. Two things makes a view different from a normal iterable.</p>
+<ol>
+<li>If the datatype the view refers to is changed then the view reflects the change</li>
+<li>Views support set-like operations provides objects of view are not sequences. Ex: Keys and values of dict not items of dict</li>
+</ol>
+<pre><code class="language-python"><div><span class="hljs-meta">&gt;&gt;&gt; </span>d = {<span class="hljs-number">1</span>:<span class="hljs-number">2</span>, <span class="hljs-number">2</span>:<span class="hljs-number">3</span>, <span class="hljs-number">3</span>:<span class="hljs-number">4</span>}
+<span class="hljs-meta">&gt;&gt;&gt; </span>d.keys()
+dict_keys([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
+<span class="hljs-meta">&gt;&gt;&gt; </span>d.values()
+dict_values([<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>])
+<span class="hljs-meta">&gt;&gt;&gt; </span>d.items()
+dict_items([(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>), (<span class="hljs-number">2</span>, <span class="hljs-number">3</span>), (<span class="hljs-number">3</span>, <span class="hljs-number">4</span>)])
+<span class="hljs-meta">&gt;&gt;&gt; </span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>d = {<span class="hljs-string">&quot;A&quot;</span>:<span class="hljs-number">3</span>, <span class="hljs-string">&quot;B&quot;</span>:<span class="hljs-number">4</span>, <span class="hljs-string">&quot;C&quot;</span>:<span class="hljs-number">5</span>, <span class="hljs-string">&quot;D&quot;</span>:<span class="hljs-number">6</span>}
+<span class="hljs-meta">&gt;&gt;&gt; </span>s = set(<span class="hljs-string">&quot;ACX&quot;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>s
+{<span class="hljs-string">&#x27;A&#x27;</span>, <span class="hljs-string">&#x27;X&#x27;</span>, <span class="hljs-string">&#x27;C&#x27;</span>}
+<span class="hljs-meta">&gt;&gt;&gt; </span>d.keys() &amp; s
+{<span class="hljs-string">&#x27;A&#x27;</span>, <span class="hljs-string">&#x27;C&#x27;</span>}
+<span class="hljs-meta">&gt;&gt;&gt; </span>
+</div></code></pre>
+<ul>
+<li>view supported set operations</li>
+</ul>
+<p>V &amp; X =&gt; intersection <br/>
+V | X =&gt; union<br/>
+V - X =&gt; difference<br/>
+V ^ X =&gt; symmetric difference<br/></p>
+<h3 id="useful-code">Useful code</h3>
+<ul>
+<li>When implementing a counter kind of operation using dict one way of doing is</li>
+</ul>
+<pre><code class="language-python"><div><span class="hljs-meta">&gt;&gt;&gt; </span>d = {}
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">for</span> ch <span class="hljs-keyword">in</span> [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">3</span>,<span class="hljs-number">2</span>]:
+<span class="hljs-meta">... </span>    <span class="hljs-keyword">try</span>:
+<span class="hljs-meta">... </span>            d[ch] +=<span class="hljs-number">1</span>
+<span class="hljs-meta">... </span>    <span class="hljs-keyword">except</span> KeyError:
+<span class="hljs-meta">... </span>            d[ch] = <span class="hljs-number">1</span>
+<span class="hljs-meta">... </span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>d
+{<span class="hljs-number">1</span>: <span class="hljs-number">1</span>, <span class="hljs-number">2</span>: <span class="hljs-number">2</span>, <span class="hljs-number">3</span>: <span class="hljs-number">2</span>, <span class="hljs-number">4</span>: <span class="hljs-number">1</span>}
+<span class="hljs-meta">&gt;&gt;&gt; </span>
+</div></code></pre>
+<p>we can use get method</p>
+<pre><code class="language-python"><div><span class="hljs-meta">&gt;&gt;&gt; </span>d = {}
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">for</span> ch <span class="hljs-keyword">in</span> [<span class="hljs-string">&#x27;a&#x27;</span>,<span class="hljs-string">&#x27;b&#x27;</span>,<span class="hljs-string">&#x27;c&#x27;</span>,<span class="hljs-string">&#x27;a&#x27;</span>,<span class="hljs-string">&#x27;b&#x27;</span>,<span class="hljs-string">&#x27;a&#x27;</span>]:
+<span class="hljs-meta">... </span>    d[ch] = d.get(ch,<span class="hljs-number">0</span>)+<span class="hljs-number">1</span>
+<span class="hljs-meta">... </span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>d
+{<span class="hljs-string">&#x27;a&#x27;</span>: <span class="hljs-number">3</span>, <span class="hljs-string">&#x27;b&#x27;</span>: <span class="hljs-number">2</span>, <span class="hljs-string">&#x27;c&#x27;</span>: <span class="hljs-number">1</span>}
+<span class="hljs-meta">&gt;&gt;&gt; </span>
+</div></code></pre>
+<p>for list or set</p>
+<pre><code class="language-python"><div><span class="hljs-meta">&gt;&gt;&gt; </span>d = {}
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">for</span> idx, ch <span class="hljs-keyword">in</span> enumerate([<span class="hljs-string">&#x27;a&#x27;</span>,<span class="hljs-string">&#x27;b&#x27;</span>,<span class="hljs-string">&#x27;c&#x27;</span>,<span class="hljs-string">&#x27;a&#x27;</span>,<span class="hljs-string">&#x27;b&#x27;</span>,<span class="hljs-string">&#x27;a&#x27;</span>]):
+<span class="hljs-meta">... </span>    d.setdefault(ch, list()).append(idx)
+<span class="hljs-meta">... </span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>d
+{<span class="hljs-string">&#x27;a&#x27;</span>: [<span class="hljs-number">0</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>], <span class="hljs-string">&#x27;b&#x27;</span>: [<span class="hljs-number">1</span>, <span class="hljs-number">4</span>], <span class="hljs-string">&#x27;c&#x27;</span>: [<span class="hljs-number">2</span>]}
+<span class="hljs-meta">&gt;&gt;&gt; </span>
+</div></code></pre>
+<h2 id="dict-comprehensions">dict comprehensions:</h2>
+<pre><code class="language-python"><div><span class="hljs-meta">&gt;&gt;&gt; </span>{keyexpression: valuesexpression <span class="hljs-keyword">for</span> key, value <span class="hljs-keyword">in</span> iterable}
+<span class="hljs-meta">&gt;&gt;&gt; </span>{keyexpression: valueexpression <span class="hljs-keyword">for</span> key, values <span class="hljs-keyword">in</span> iterable <span class="hljs-keyword">if</span> condition}
+<span class="hljs-meta">&gt;&gt;&gt; </span>inverted_d = {V:K <span class="hljs-keyword">for</span> K, V im d.items()}
+</div></code></pre>
+<br/>
+<h1 id="default-dictionaries">Default Dictionaries</h1>
+<p>Default dictionaries are dictionaries, they have all the operators and methods that dictionaries provide.<br/>
+-&gt; Default dictionary is a subclass of dict <br/>
+-&gt; The difference between dictionary and default dictionary is that the way how it handles missing keys.</p>
+<p>          
+d[key] will raise <strong>KeyError</strong> in dict<br/>
+          
+d[key] never raises <strong>KeyError</strong>, it will create a default value with the key.<br/>
+-&gt; defaultdict takes factory function as input while creation</p>
+<h2 id="factory-function">Factory Function</h2>
+<ul>
+<li>A factory function is a function that when called returns an object of a particular type.</li>
+<li>All of python's built-in data types can be used as factory functions.</li>
+</ul>
+<p>Ex:
+Data type str can be called as str() and it returns an empty string object.<br/></p>
+<ul>
+<li>Name of a function is an object reference to the function
+<ul>
+<li>so when we pass function as parameter we pass the name</li>
+<li>when we use function with parenthesis, then python will call the function.</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-python"><div><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> collections <span class="hljs-keyword">import</span> defaultdict
+<span class="hljs-meta">&gt;&gt;&gt; </span>d = defaultdict(int)
+<span class="hljs-meta">&gt;&gt;&gt; </span>d[<span class="hljs-number">5</span>]
+<span class="hljs-number">0</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>d
+defaultdict(&lt;<span class="hljs-class"><span class="hljs-keyword">class</span> &#x27;<span class="hljs-title">int</span>&#x27;&gt;, {5:</span> <span class="hljs-number">0</span>})
+<span class="hljs-meta">&gt;&gt;&gt; </span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>d = defaultdict(list)
+<span class="hljs-meta">&gt;&gt;&gt; </span>d
+defaultdict(&lt;<span class="hljs-class"><span class="hljs-keyword">class</span> &#x27;<span class="hljs-title">list</span>&#x27;&gt;, {})
+&gt;&gt;&gt; <span class="hljs-title">d</span>[5].<span class="hljs-title">append</span>(<span class="hljs-params"><span class="hljs-number">7</span></span>)
+&gt;&gt;&gt; <span class="hljs-title">d</span>
+<span class="hljs-title">defaultdict</span>(<span class="hljs-params">&lt;class <span class="hljs-string">&#x27;list&#x27;</span>&gt;, {<span class="hljs-number">5</span>: [<span class="hljs-number">7</span>]}</span>)
+&gt;&gt;&gt; <span class="hljs-title">d</span>[6]
+[]
+&gt;&gt;&gt; <span class="hljs-title">d</span>
+<span class="hljs-title">defaultdict</span>(<span class="hljs-params">&lt;class <span class="hljs-string">&#x27;list&#x27;</span>&gt;, {<span class="hljs-number">5</span>: [<span class="hljs-number">7</span>], <span class="hljs-number">6</span>: []}</span>)
+&gt;&gt;&gt; 
+</span></div></code></pre>
+<h1 id="ordered-dictionaries">Ordered Dictionaries</h1>
+<ul>
+<li>The ordered dictionaries store their items in order in which they were inserted.</li>
+<li>If an ordered dictionary is passed with unordered dictionary then the result may be unordered</li>
+<li>A similar effect occurs with update() method</li>
+<li>Best to avoid these 2 when using ordered dict</li>
+</ul>
+<pre><code class="language-python"><div><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> collections <span class="hljs-keyword">import</span> OrderedDict
+<span class="hljs-meta">&gt;&gt;&gt; </span>
+</div></code></pre>
+<p>Note: <a href="https://stackoverflow.com/questions/39980323/are-dictionaries-ordered-in-python-3-6">dict's retaining insertion is guaranteed for python3.7</a>, So, no need to specifically use OrderedDict</p>
 
     </body>
     </html>

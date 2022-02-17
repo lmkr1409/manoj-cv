@@ -1,3 +1,32 @@
+- [Sequence Types](#sequence-types)
+  - [sequence types - common topics](#sequence-types---common-topics)
+  - [Slicing](#slicing)
+    - [Syntax](#syntax)
+- [Lists - Mutable](#lists---mutable)
+    - [Unpacking and starred unpacking of a list:](#unpacking-and-starred-unpacking-of-a-list)
+    - [Methods on lists:](#methods-on-lists)
+    - [List Comprehension](#list-comprehension)
+- [Tuples - Immutable](#tuples---immutable)
+    - [Methods on tuples](#methods-on-tuples)
+- [Named Tuples](#named-tuples)
+    - [String formatting for namedtuple](#string-formatting-for-namedtuple)
+- [Set Types](#set-types)
+- [set](#set)
+  - [Set Operations](#set-operations)
+  - [set comprehension](#set-comprehension)
+  - [set methods](#set-methods)
+- [frozenset](#frozenset)
+  - [frozenset methods](#frozenset-methods)
+- [Mapping Types](#mapping-types)
+- [Dictionaries](#dictionaries)
+    - [dict declaration](#dict-declaration)
+  - [dict methods](#dict-methods)
+    - [Q. **What is the difference between view and iterable**?](#q-what-is-the-difference-between-view-and-iterable)
+    - [Useful code](#useful-code)
+  - [dict comprehensions:](#dict-comprehensions)
+- [Default Dictionaries](#default-dictionaries)
+  - [Factory Function](#factory-function)
+- [Ordered Dictionaries](#ordered-dictionaries)
 
 # Sequence Types
 
@@ -370,3 +399,199 @@ let <br/>
 | s.symmetric_difference(t) <br/> s^t| Returns new set with s^t |
 | s.union(t) <br/> s\|t | Returns new set with union of s and t |
 |
+
+<br/>
+<br/>
+
+# Mapping Types
+* A mapping type is one that supports the membership operator(in) and the size function len() and is iterable.
+
+-> Only hashable objects may be used as dictionary key. So immutable objects like float, frozenset, int, str and tuple can be used dictionary keys but mutable objects like dict, list, set cannot. <br/>
+-> Dictionaries are mutable objects <br/>
+-> Dictionaries can be compared using <br/>
+* == and != with comparisons being applied item by item (and recursively for nested items), <br/>
+* comparison using <, <=, >=, > are not supported
+
+-> few types 
+* dictionary (default)
+* collections.defaultdict
+* collections.ordereddict
+
+# Dictionaries
+A dict is an unordered collection of zero or more key-value pairs whose keys are object references the refer to the hashable objects and whose values are object references to objects of any type.<br/>
+-> Dictionaries are mutable<br/>
+-> Since unordered, no notion of index position and cannot be sliced or strided.<br/>
+-> ```d = dict()```<br/> &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(or) &nbsp;&nbsp;&nbsp;&nbsp; <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```d={}``` ---> creates an empty dictionary<br/>
+->dict(another_dict) -> creates a shallow copy
+
+### dict declaration
+```python
+>>> d1 = dict({"id":1948, "name":"washer", "size":3})
+>>> d2 = dict(id=1948, name="washer", size = 3)
+>>> d3 = dict([("id", 1948), ("name","washer"), ("size", 3)])
+>>> d4 = dict(zip(("id","name","size"),(1948, "washer", 3)))
+>>> d5 = {"id":1948, "name":"washer", "size":3}
+>>>
+```
+All above 5 dictionaries will be same
+<br/>
+-> Dictionaries support the build in len() function<br/>
+-> Accessing dictionaries items can be
+```python
+>>> for key, value in d1.items():
+...     print(key, value)
+... 
+id 1948
+name washer
+size 3
+>>> 
+```
+
+## dict methods
+|Method | description |
+| -- | -- |
+| clear() | Removes all items|
+| copy() | Returns shallow copy | 
+| fromkeys(S, V) | Returns a dict whose keys are the items in the sequence S and whose values are None or V if V is given |
+| get(K) | Returns K's values, None if K isn't in the dict.<br/>           **Note**: d[K] will raise **KeyError** if K is not in the dict|
+| get(K, V) | Returns K's value if K is in dict. If K not in dict then V | 
+| items() | Returns a **view** of all (Key, Values) pairs |
+| keys() | Returns a view of all Keys|
+| values() | Returns a view of all the values from d |
+| pop(k) | Returns K's associated value and removes K from dict, raises **KeyError** if K not in dict |
+| pop(K, V) | Returns K's associated value and removes K from dict, If K is not in dict then V is returned |
+| popitem() | Returns and removes arbitary (Key, Value) pair from d, raise **KeyError** if d is empty |
+| setdefault(K, V) | Returns K's Value. If K is not in d then a new K is created with None/V provided V|
+| update(a) | updates d with all Key, value from a. Overrides of same with with value from a |
+|
+
+### Q. **What is the difference between view and iterable**?
+
+A view helps to get a new view of array with the same data. Two things makes a view different from a normal iterable.
+1. If the datatype the view refers to is changed then the view reflects the change
+2. Views support set-like operations provides objects of view are not sequences. Ex: Keys and values of dict not items of dict
+
+```python
+>>> d = {1:2, 2:3, 3:4}
+>>> d.keys()
+dict_keys([1, 2, 3])
+>>> d.values()
+dict_values([2, 3, 4])
+>>> d.items()
+dict_items([(1, 2), (2, 3), (3, 4)])
+>>> 
+>>> d = {"A":3, "B":4, "C":5, "D":6}
+>>> s = set("ACX")
+>>> s
+{'A', 'X', 'C'}
+>>> d.keys() & s
+{'A', 'C'}
+>>> 
+```
+
+* view supported set operations
+
+V & X => intersection <br/>
+V \| X => union<br/>
+V - X => difference<br/>
+V ^ X => symmetric difference<br/>
+
+### Useful code
+* When implementing a counter kind of operation using dict one way of doing is 
+
+```python
+>>> d = {}
+>>> for ch in [1,2,3,4,3,2]:
+...     try:
+...             d[ch] +=1
+...     except KeyError:
+...             d[ch] = 1
+... 
+>>> d
+{1: 1, 2: 2, 3: 2, 4: 1}
+>>> 
+```
+we can use get method 
+```python
+>>> d = {}
+>>> for ch in ['a','b','c','a','b','a']:
+...     d[ch] = d.get(ch,0)+1
+... 
+>>> d
+{'a': 3, 'b': 2, 'c': 1}
+>>> 
+```
+for list or set
+```python
+>>> d = {}
+>>> for idx, ch in enumerate(['a','b','c','a','b','a']):
+...     d.setdefault(ch, list()).append(idx)
+... 
+>>> d
+{'a': [0, 3, 5], 'b': [1, 4], 'c': [2]}
+>>> 
+```
+## dict comprehensions:
+
+```python
+>>> {keyexpression: valuesexpression for key, value in iterable}
+>>> {keyexpression: valueexpression for key, values in iterable if condition}
+>>> inverted_d = {V:K for K, V im d.items()}
+```
+
+<br/>
+
+# Default Dictionaries
+Default dictionaries are dictionaries, they have all the operators and methods that dictionaries provide.<br/>
+-> Default dictionary is a subclass of dict <br/>
+-> The difference between dictionary and default dictionary is that the way how it handles missing keys.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+d[key] will raise **KeyError** in dict<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+d[key] never raises **KeyError**, it will create a default value with the key.<br/>
+-> defaultdict takes factory function as input while creation
+
+## Factory Function
+* A factory function is a function that when called returns an object of a particular type. 
+* All of python's built-in data types can be used as factory functions.
+
+Ex:
+Data type str can be called as str() and it returns an empty string object.<br/>
+* Name of a function is an object reference to the function 
+  - so when we pass function as parameter we pass the name
+  - when we use function with parenthesis, then python will call the function.
+
+```python
+>>> from collections import defaultdict
+>>> d = defaultdict(int)
+>>> d[5]
+0
+>>> d
+defaultdict(<class 'int'>, {5: 0})
+>>> 
+>>> d = defaultdict(list)
+>>> d
+defaultdict(<class 'list'>, {})
+>>> d[5].append(7)
+>>> d
+defaultdict(<class 'list'>, {5: [7]})
+>>> d[6]
+[]
+>>> d
+defaultdict(<class 'list'>, {5: [7], 6: []})
+>>> 
+```
+
+# Ordered Dictionaries
+* The ordered dictionaries store their items in order in which they were inserted.
+* If an ordered dictionary is passed with unordered dictionary then the result may be unordered
+* A similar effect occurs with update() method
+* Best to avoid these 2 when using ordered dict
+
+```python
+>>> from collections import OrderedDict
+>>> 
+```
+Note: [dict's retaining insertion is guaranteed for python3.7](https://stackoverflow.com/questions/39980323/are-dictionaries-ordered-in-python-3-6), So, no need to specifically use OrderedDict
+

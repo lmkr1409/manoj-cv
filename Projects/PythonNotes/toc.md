@@ -1,8 +1,8 @@
 
-* [How to Run Python](base#1-running-python)
-* [Variables](base#2-variables)
+* [How to Run Python](base#running-python)
+* [Variables](base#variables)
   * What is typing of language
-* [Conditionals](base#3-conditionals)
+* [Conditionals](base#conditionals)
 * [Important Topics](important_topics#mutable-objects-vs-immutable-objects)
   * Mutable Objects vs Immutable Objects
   * Object References
@@ -22,8 +22,11 @@
   * [Set Types](data_types#set-types)
       * set
       * frozenset
-  * Mapping Types
+  * [Mapping Types](data_types#mapping-types)
       * dict
       * defaultdict
       * OrderedDict
   * boolean
+* [General Topics](general_topics)
+  * [Iterating and copying collections](general_topics#iterating-and-copying-collections)
+  * [Key Points](general_topics#key-points)

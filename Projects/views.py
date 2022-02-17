@@ -27,3 +27,8 @@ class DataTypesView(View):
 
     def get(self, request):
         return render(request, 'PythonNotes/DataTypes.html')
+
+
+class GeneralTopics(View):
+    def get(self, request):
+        return render(request, 'PythonNotes/GeneralTopics.html')
