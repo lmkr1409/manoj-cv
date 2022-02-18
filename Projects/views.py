@@ -32,3 +32,7 @@ class DataTypesView(View):
 class GeneralTopics(View):
     def get(self, request):
         return render(request, 'PythonNotes/GeneralTopics.html')
+
+class FunctionsView(View):
+    def get(self, request):
+        return render(request, 'PythonNotes/Functions.html')

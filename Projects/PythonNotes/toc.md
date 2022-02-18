@@ -30,3 +30,7 @@
 * [General Topics](general_topics)
   * [Iterating and copying collections](general_topics#iterating-and-copying-collections)
   * [Key Points](general_topics#key-points)
+* [Functions](functions#functions)
+  * [Arguments of Functions](functions#arguments-of-functions)
+  * [lambda expressions](functions#lambda-expressions)
+  * [Nested functions (Inner functions)](functions#nested-functions-inner-functions)
